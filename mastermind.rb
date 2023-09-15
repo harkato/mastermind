@@ -7,7 +7,6 @@ class Game
   def initialize
     @attempts = 0
     code = generate_code
-    print code
   end
 
   def start_game
@@ -16,14 +15,15 @@ class Game
 
     until @attempts == MAX_ATTEMPTS
       execute_game
-      if @correct_guess == @code
+      if @correct_guess.all? { |element| element == "Check!" }
         puts "You Win!"
         return
       elsif @attempts == 10
         puts "You Lose!"
         return
       end
-      puts "\nYou have a total of #{MAX_ATTEMPTS - @attempts} attempts. \n" 
+      puts "\nYou have a total of #{MAX_ATTEMPTS - @attempts} attempts. \n"
+      puts "Available colors: #{COLORS.join(", ")} \n" 
     end
   end
 
@@ -46,7 +46,7 @@ class Game
       end
       guess << @user_input
     end
-    print guess
+    print "Your guess: " + guess.to_s
     guess
   end
 
