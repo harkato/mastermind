@@ -1,6 +1,7 @@
 class Game
   MAX_ATTEMPTS = 10
   COLORS = ["R", "G", "B", "P", "S", "O"]
+  POSITIONS = 4
   #red, green, blue, pink, silver, orange
 
   def initialize
@@ -16,14 +17,21 @@ class Game
   end
 
   def player_guess
-    puts "Give your guess: "
+    puts "Give your guess:"
     @guess = []
+    @attempts += 1
     4.times do |i|
-      puts "Color #{i+1}: "
-      @input = gets.chomp.upcase
-      @guess << @input
+      puts "Color #{i+1}:"
+      @user_input = gets.chomp.upcase
+      until COLORS.include?(@user_input)
+        puts "Invalid input. Please enter a valid color (R, G, B, P, S, or O)."
+        @user_input = gets.chomp.upcase
+      end
+      @guess << @user_input
     end
+    print @guess
   end
+
 
 
   private
