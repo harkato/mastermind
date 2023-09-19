@@ -26,28 +26,17 @@ class Game
       puts "Available colors: #{COLORS.join(", ")} \n" 
     end
   end
+  
+  private
+
+  attr_accessor :guess, :code
+  
+  def generate_code
+    @code = COLORS.sample(4)
+  end
 
   def execute_game
     validate_guess(player_guess)
-  end
-
-  def player_guess
-    guess = []
-    @attempts += 1
-
-    puts "Give your guess\n"
-
-    4.times do |i|
-      puts "Color #{i+1}:"
-      @user_input = gets.chomp.upcase
-      until COLORS.include?(@user_input)
-        puts "Invalid input. Please enter a valid color (R, G, B, P, S, or O)."
-        @user_input = gets.chomp.upcase
-      end
-      guess << @user_input
-    end
-    print "Your guess: " + guess.to_s
-    guess
   end
 
   def validate_guess(guess)
@@ -70,11 +59,23 @@ class Game
     puts "\nHere's your guess: #{@correct_guess.join(", ")}"
   end
 
-  private
+  def player_guess
+    guess = []
+    @attempts += 1
 
-  attr_accessor :guess, :code
-  def generate_code
-    @code = COLORS.sample(4)
+    puts "Give your guess\n"
+
+    4.times do |i|
+      puts "Color #{i+1}:"
+      @user_input = gets.chomp.upcase
+      until COLORS.include?(@user_input)
+        puts "Invalid input. Please enter a valid color (R, G, B, P, S, or O)."
+        @user_input = gets.chomp.upcase
+      end
+      guess << @user_input
+    end
+    print "Your guess: " + guess.to_s
+    guess
   end
 end
 
